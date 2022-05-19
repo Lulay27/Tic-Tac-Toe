@@ -1,3 +1,15 @@
+function game() {
+
+}
+
+const gameBoard = (() => {
+
+})();
+
+const displayController = (() => {
+
+})();
+
 
 for (let i = 0; i < 9; i++) {
     const squareDiv = document.createElement('div');
