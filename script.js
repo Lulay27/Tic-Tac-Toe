@@ -68,8 +68,8 @@ boardSelector.addEventListener('click',cross);
 
 function cross(e) {
     const index = e.target.className;
-    if (index.length == 1) {      // why when this was = instead of == made 4
-        gameBoard.markMethod(index,'X');
+    if (index.innerHTML == null) {      // why when this was = instead of == made 4
+        gameBoard.markMethod('.square','X');
         // e.target.innerHTML = 'please work';
     }
     // alert(e.target);
@@ -79,3 +79,5 @@ function cross(e) {
 
 
 gameBoard.renderBoard();
+
+// encapsulate all the (e) functions into a start module that starts everything
