@@ -26,8 +26,8 @@ const gameBoard = ((doc) => {       // add doc
         console.log(name + ' is my name');
     }
 
-    const markMethod = (selector,message) => {    // marks point on array
-        doc.querySelector(selector).innerHTML = message;
+    const markMethod = (eventTarget,message) => {    // marks point on array
+        eventTarget.innerHTML = message;
     }
 
 
@@ -67,12 +67,14 @@ const boardSelector = document.querySelector('.board-container');
 boardSelector.addEventListener('click',cross);
 
 function cross(e) {
-    const index = e.target.className;
-    if (index.innerHTML == null) {      // why when this was = instead of == made 4
-        gameBoard.markMethod('.square','X');
+    const index = e.target;
+    if (index.innerHTML == '') {      // why when this was = instead of == made 4
+        
+        // e.target.innerHTML = 'X';
+        gameBoard.markMethod(e.target,'X');
         // e.target.innerHTML = 'please work';
     }
-    // alert(e.target);
+    //  alert(e.target.innerHTML);
 }
 
 
