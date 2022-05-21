@@ -3,10 +3,24 @@ const player = (name, turn) => {
 
     return {name, turn}
 };
-
+// let boardArr = [];
 // module
-const gameBoard = ((doc) => {       // add doc 
-    const boardArr = [];
+const gameBoard = ((doc) => {       // add doc
+    let boardArr = [];
+
+    const renderBoard = () => {
+        for (let i = 0; i < 9; i++) {
+            const squareDiv = document.createElement('div');
+            squareDiv.className = 'square';
+            
+            document.querySelector('.board-container').appendChild(squareDiv);
+            boardArr.push(squareDiv)
+        } 
+    }
+
+    const boardArrVal = () => {
+        console.log(boardArr)
+    }
 
     const testingMethod = (name) => {
         console.log(name + ' is my name');
@@ -16,9 +30,13 @@ const gameBoard = ((doc) => {       // add doc
         doc.querySelector(selector).innerHTML = message;
     }
 
+
+
     return {
         testingMethod,
-        markMethod
+        markMethod,
+        renderBoard,
+        boardArrVal
     };  // must put document here and use 'doc' b/c markMethod
     // uses DOM that grabs document from outside the module
 
@@ -37,11 +55,12 @@ const displayController = (() => {
 
 
 
-for (let i = 0; i < 9; i++) {
-    const squareDiv = document.createElement('div');
-    squareDiv.className = i;
-    document.querySelector('.board-container').appendChild(squareDiv);
-} 
+// for (let i = 0; i < 9; i++) {
+//     const squareDiv = document.createElement('div');
+//     squareDiv.className = 'square';
+//     boardArr.push(squareDiv)
+//     document.querySelector('.board-container').appendChild(squareDiv);
+// } 
 
 const boardSelector = document.querySelector('.board-container');
 
@@ -55,3 +74,8 @@ function cross(e) {
     }
     // alert(e.target);
 }
+
+
+
+
+gameBoard.renderBoard();
