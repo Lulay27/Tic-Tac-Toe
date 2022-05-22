@@ -18,8 +18,8 @@ const gameBoard = ((doc) => {       // add doc
         } 
     }
 
-    const boardArrVal = () => {
-        console.log(boardArr)
+    const boardArrVal = (index) => {
+        return(boardArr[index].innerHTML);
     }
 
     const testingMethod = (name) => {
@@ -30,8 +30,6 @@ const gameBoard = ((doc) => {       // add doc
         eventTarget.innerHTML = message;
     }
 
-
-
     return {
         testingMethod,
         markMethod,
@@ -39,28 +37,44 @@ const gameBoard = ((doc) => {       // add doc
         boardArrVal
     };  // must put document here and use 'doc' b/c markMethod
     // uses DOM that grabs document from outside the module
-
 })(document);
 
 //module
-const displayController = (() => {
+const displayController = ((doc) => {
 
+    
 
-})();   
+    const gameOver = () => {
+        // display tictactoe when line is made
+        const msg = doc.createElement('div');
+        msg.innerHTML = "GAME OVER"
+        doc.querySelector('header').appendChild(msg);
+    }
+
+    const gameLine = () => {    // should be 8 lines of winning 3 hori 3 vert and 2 cross
+        if (gameBoard.boardArrVal(0) && gameBoard.boardArrVal(1) && gameBoard.boardArrVal(2) == 'X') {
+            return true;
+        }
+        
+        if (gameBoard.boardArrVal(3) && gameBoard.boardArrVal(4) && gameBoard.boardArrVal(5) == 'X') {
+            return true;
+        }
+        
+        else {
+            return false;
+        }
+    }
+
+    return {
+        gameOver,
+        gameLine
+    };
+})(document);   
 
 
 
 // tmr task change so div names arent index and set up array for that
 
-
-
-
-// for (let i = 0; i < 9; i++) {
-//     const squareDiv = document.createElement('div');
-//     squareDiv.className = 'square';
-//     boardArr.push(squareDiv)
-//     document.querySelector('.board-container').appendChild(squareDiv);
-// } 
 
 const boardSelector = document.querySelector('.board-container');
 
@@ -69,10 +83,10 @@ boardSelector.addEventListener('click',cross);
 function cross(e) {
     const index = e.target;
     if (index.innerHTML == '') {      // why when this was = instead of == made 4
-        
-        // e.target.innerHTML = 'X';
+    
         gameBoard.markMethod(e.target,'X');
-        // e.target.innerHTML = 'please work';
+    } if (displayController.gameLine() == true) {
+        displayController.gameOver();
     }
     //  alert(e.target.innerHTML);
 }
