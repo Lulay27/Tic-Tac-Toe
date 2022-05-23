@@ -41,22 +41,44 @@ const gameBoard = ((doc) => {       // add doc
 
 //module
 const displayController = ((doc) => {
-
-    
-
     const gameOver = () => {
         // display tictactoe when line is made
         const msg = doc.createElement('div');
         msg.innerHTML = "GAME OVER"
         doc.querySelector('header').appendChild(msg);
+        boardSelector.removeEventListener('click',cross);
     }
 
     const gameLine = () => {    // should be 8 lines of winning 3 hori 3 vert and 2 cross
-        if (gameBoard.boardArrVal(0) && gameBoard.boardArrVal(1) && gameBoard.boardArrVal(2) == 'X') {
+        if ((gameBoard.boardArrVal(0) && gameBoard.boardArrVal(1) && gameBoard.boardArrVal(2)) == 'X') {
             return true;
         }
         
         if (gameBoard.boardArrVal(3) && gameBoard.boardArrVal(4) && gameBoard.boardArrVal(5) == 'X') {
+            return true;
+        }
+        
+        if (gameBoard.boardArrVal(6) && gameBoard.boardArrVal(7) && gameBoard.boardArrVal(8) == 'X') {
+            return true;
+        }
+        
+        if (gameBoard.boardArrVal(0) && gameBoard.boardArrVal(3) && gameBoard.boardArrVal(6) == 'X') {
+            return true;
+        }
+        
+        if (gameBoard.boardArrVal(1) && gameBoard.boardArrVal(4) && gameBoard.boardArrVal(7) == 'X') {
+            return true;
+        }
+        
+        if (gameBoard.boardArrVal(2) && gameBoard.boardArrVal(5) && gameBoard.boardArrVal(8) == 'X') {
+            return true;
+        }
+        
+        if (gameBoard.boardArrVal(0) && gameBoard.boardArrVal(4) && gameBoard.boardArrVal(8) == 'X') {
+            return true;
+        }
+        
+        if (gameBoard.boardArrVal(2) && gameBoard.boardArrVal(4) && gameBoard.boardArrVal(6) == 'X') {
             return true;
         }
         
@@ -71,13 +93,7 @@ const displayController = ((doc) => {
     };
 })(document);   
 
-
-
-// tmr task change so div names arent index and set up array for that
-
-
 const boardSelector = document.querySelector('.board-container');
-
 boardSelector.addEventListener('click',cross);
 
 function cross(e) {
@@ -91,9 +107,5 @@ function cross(e) {
     //  alert(e.target.innerHTML);
 }
 
-
-
-
 gameBoard.renderBoard();
-
 // encapsulate all the (e) functions into a start module that starts everything
