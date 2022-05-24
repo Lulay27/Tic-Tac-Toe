@@ -1,9 +1,13 @@
-// factory function
-const player = (name, turn) => {
 
-    return {name, turn}
+// factory function
+const player = (turn,player) => {
+    const getTurn = () => turn;
+    const getplayerNumber = () => player;
+
+
+    
+    return {player, turn}
 };
-// let boardArr = [];
 // module
 const gameBoard = ((doc) => {       // add doc
     let boardArr = [];
@@ -12,7 +16,6 @@ const gameBoard = ((doc) => {       // add doc
         for (let i = 0; i < 9; i++) {
             const squareDiv = document.createElement('div');
             squareDiv.className = 'square';
-            
             document.querySelector('.board-container').appendChild(squareDiv);
             boardArr.push(squareDiv)
         } 
@@ -22,16 +25,11 @@ const gameBoard = ((doc) => {       // add doc
         return(boardArr[index].innerHTML);
     }
 
-    const testingMethod = (name) => {
-        console.log(name + ' is my name');
-    }
-
     const markMethod = (eventTarget,message) => {    // marks point on array
         eventTarget.innerHTML = message;
     }
 
     return {
-        testingMethod,
         markMethod,
         renderBoard,
         boardArrVal
@@ -41,10 +39,14 @@ const gameBoard = ((doc) => {       // add doc
 
 //module
 const displayController = ((doc) => {
+
+    // const Lyon = player(1,1);   // player1 goes first as X
+    // const Eric = player(2,2);
+
     const gameOver = () => {
         // display tictactoe when line is made
         const msg = doc.createElement('div');
-        msg.innerHTML = "GAME OVER"
+        msg.innerHTML = "GAME OVER";
         doc.querySelector('header').appendChild(msg);
         boardSelector.removeEventListener('click',cross);
     }
@@ -87,21 +89,41 @@ const displayController = ((doc) => {
         }
     }
 
+    const playerTurn = (player) => {
+        return player.turn;
+    }
+
+    const playerTurnend = (player) => {
+        player.turn = 2;
+    }
+
     return {
         gameOver,
-        gameLine
+        gameLine,
+        playerTurnend,
+        playerTurn
     };
 })(document);   
 
 const boardSelector = document.querySelector('.board-container');
 boardSelector.addEventListener('click',cross);
+const Lyon = player(1,1);   // player1 goes first as X
+const Eric = player(2,2);
 
 function cross(e) {
-    const index = e.target;
-    if (index.innerHTML == '') {      // why when this was = instead of == made 4
     
-        gameBoard.markMethod(e.target,'X');
-    } if (displayController.gameLine() == true) {
+    const index = e.target;
+
+    while(displayController.playerTurn(Lyon) == 1) {
+        if (index.innerHTML == '') {      // why when this was = instead of == made 4
+
+            gameBoard.markMethod(e.target,'X');
+            
+        }
+    }
+    
+    
+    if (displayController.gameLine() == true) {
         displayController.gameOver();
     }
     //  alert(e.target.innerHTML);
