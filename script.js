@@ -4,8 +4,6 @@ const player = (turn,player) => {
     const getTurn = () => turn;
     const getplayerNumber = () => player;
 
-
-    
     return {player, turn}
 };
 // module
@@ -48,39 +46,42 @@ const displayController = ((doc) => {
         const msg = doc.createElement('div');
         msg.innerHTML = "GAME OVER";
         doc.querySelector('header').appendChild(msg);
+
+        doc.querySelector('.player-turn').innerHTML = "GAME OVER";
+
         boardSelector.removeEventListener('click',cross);
     }
 
     const gameLine = () => {    // should be 8 lines of winning 3 hori 3 vert and 2 cross
-        if ((gameBoard.boardArrVal(0) && gameBoard.boardArrVal(1) && gameBoard.boardArrVal(2)) == 'X') {
+        if ((gameBoard.boardArrVal(0) + gameBoard.boardArrVal(1) + gameBoard.boardArrVal(2)) == ('XXX' || 'OOO')) {
             return true;
         }
         
-        if (gameBoard.boardArrVal(3) && gameBoard.boardArrVal(4) && gameBoard.boardArrVal(5) == 'X') {
+        if (gameBoard.boardArrVal(3)+ gameBoard.boardArrVal(4)+ gameBoard.boardArrVal(5) == ('XXX' || 'OOO')) {
             return true;
         }
         
-        if (gameBoard.boardArrVal(6) && gameBoard.boardArrVal(7) && gameBoard.boardArrVal(8) == 'X') {
+        if (gameBoard.boardArrVal(6)+ gameBoard.boardArrVal(7)+ gameBoard.boardArrVal(8) == ('XXX' || 'OOO')) {
             return true;
         }
         
-        if (gameBoard.boardArrVal(0) && gameBoard.boardArrVal(3) && gameBoard.boardArrVal(6) == 'X') {
+        if (gameBoard.boardArrVal(0)+ gameBoard.boardArrVal(3)+ gameBoard.boardArrVal(6) == ('XXX' || 'OOO')) {
             return true;
         }
         
-        if (gameBoard.boardArrVal(1) && gameBoard.boardArrVal(4) && gameBoard.boardArrVal(7) == 'X') {
+        if (gameBoard.boardArrVal(1)+ gameBoard.boardArrVal(4)+ gameBoard.boardArrVal(7) == ('XXX' || 'OOO')) {
             return true;
         }
         
-        if (gameBoard.boardArrVal(2) && gameBoard.boardArrVal(5) && gameBoard.boardArrVal(8) == 'X') {
+        if (gameBoard.boardArrVal(2)+ gameBoard.boardArrVal(5)+ gameBoard.boardArrVal(8) == ('XXX' || 'OOO')) {
             return true;
         }
         
-        if (gameBoard.boardArrVal(0) && gameBoard.boardArrVal(4) && gameBoard.boardArrVal(8) == 'X') {
+        if (gameBoard.boardArrVal(0)+ gameBoard.boardArrVal(4)+ gameBoard.boardArrVal(8) == ('XXX' || 'OOO')) {
             return true;
         }
         
-        if (gameBoard.boardArrVal(2) && gameBoard.boardArrVal(4) && gameBoard.boardArrVal(6) == 'X') {
+        if (gameBoard.boardArrVal(2)+ gameBoard.boardArrVal(4)+ gameBoard.boardArrVal(6) == ('XXX' || 'OOO')) {
             return true;
         }
         
@@ -93,15 +94,20 @@ const displayController = ((doc) => {
         return player.turn;
     }
 
-    const playerTurnend = (player) => {
+    const playerTurnEnd = (player) => {
         player.turn = 2;
+    }
+
+    const playerTurnStart = (player) => {
+        player.turn = 1;
     }
 
     return {
         gameOver,
         gameLine,
-        playerTurnend,
-        playerTurn
+        playerTurnEnd,
+        playerTurn,
+        playerTurnStart
     };
 })(document);   
 
@@ -114,14 +120,27 @@ function cross(e) {
     
     const index = e.target;
 
-    while(displayController.playerTurn(Lyon) == 1) {
+    if(displayController.playerTurn(Lyon) == 1) {
         if (index.innerHTML == '') {      // why when this was = instead of == made 4
 
+            displayController.playerTurnEnd(Lyon);
+            displayController.playerTurnStart(Eric);
+            document.querySelector('.player-turn').innerHTML = "Player 2's Turn";
             gameBoard.markMethod(e.target,'X');
             
         }
     }
     
+    else if(displayController.playerTurn(Eric) == 1) {
+        if (index.innerHTML == '') {      // why when this was = instead of == made 4
+
+            displayController.playerTurnEnd(Eric);
+            displayController.playerTurnStart(Lyon);
+            document.querySelector('.player-turn').innerHTML = "Player 1's Turn";
+            gameBoard.markMethod(e.target,'O');
+            
+        }
+    }
     
     if (displayController.gameLine() == true) {
         displayController.gameOver();
