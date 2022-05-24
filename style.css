@@ -1,20 +1,42 @@
 * {
-    /* box-sizing: border-box;
+    box-sizing: border-box;
     margin: 0;
-    padding: 0; */
-    /* background-color: */
+    padding: 0; 
+    background-color: RGB(223, 207, 190);
 }
 
-header{
-    /* display: flex; */
-    
-    padding: 30px 10%;
+header {
+    display: flex;
+    justify-content: center;
+    padding: 80px 10%;
 
 }
 
+.title {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 50px;
+}
 
 main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 
+.square {
+    font-family: 'Times New Roman', Times, serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 75px;
+}
+
+.player-turn {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 30px;
+    
+    padding: 30px;
 }
 
 .board-container {
@@ -26,5 +48,4 @@ main {
 
 .square{
     border: 1px solid black;
-    
 }
