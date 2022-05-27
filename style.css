@@ -49,3 +49,9 @@ main {
 .square{
     border: 1px solid black;
 }
+
+footer {
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+}
